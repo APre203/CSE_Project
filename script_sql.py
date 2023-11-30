@@ -1,12 +1,17 @@
 import psycopg2
 from list_data import genre, artist, track, user , playlist, playlist_song
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DB_PASS = os.getenv('db_password')
 
 
 # Database connection parameters
 db_host = 'localhost'  # Replace with your database host
 db_name = 'Music_460_Project'  # Replace with your database name
 db_user = 'postgres'  # Replace with your database username
-db_password = 'Duktom123'  # Replace with your database password
+db_password = DB_PASS  # Replace with your database password
 db_port = 5432  # Replace with your database port (default PostgreSQL port is 5432)
 
 # Establish a connection to the PostgreSQL database
