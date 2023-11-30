@@ -16,7 +16,7 @@ artist_name = []
 NUMBER = 100 # Number of songs looked at in the csv file
 PLAYLISTS = NUMBER//2 # Number of playlists
 USERS = NUMBER//4 # Number of users generated 
-PLAYLIST_SONGS = NUMBER*2 # Number of playlist songs looked at
+PLAYLIST_SONGS = 10 # Max number of songs in each playlist
 ################################
 
 def get_genre(csv_file=csv_df, number=NUMBER): # Returns the genre of the first # songs and a description for them
@@ -184,20 +184,23 @@ def get_playlist(csv_file=csv_df, number=NUMBER): # playlistid, userid, name, cr
 
 # get_playlist()
 
-def get_playlistsong(csv_file=csv_df, number=NUMBER): #playlistsongid, playlistid, tid, orderingnumber
-  order = {} # keeps track of orders in each playlist
-  playlistsongs = []
-  users = [i+1 for i in range(0, USERS)]
-  playlists = [i+1 for i in range(0, PLAYLISTS)]
-  tracks = [i+1 for i in range(0, NUMBER)]
-  for i in range(0, PLAYLIST_SONGS):
-    psid = i+1
-    pid = random.choice(playlists)
-    tid = random.choice(tracks)
-    ordernumber = order.get(pid,0) + 1
-    order[pid] = order.get(pid,0) + 1
 
-    playlistsongs.append((psid, pid, tid, int(float(ordernumber))))
+def get_playlistsong(csv_file=csv_df, number=NUMBER): #playlistsongid, playlistid, tid, orderingnumber
+  # order = {} # keeps track of orders in each playlist
+  playlistsongs = []
+  tracks = [i+1 for i in range(0, NUMBER)]
+  psid = 1
+  for i in range(0, PLAYLISTS): # i is the playlistid
+    number_of_songs = random.randint(1,PLAYLIST_SONGS)
+    for o in range(0,number_of_songs): #plsong is the playlistsongid
+      ordernumber = o+1
+      pid = i+1 
+      tid = random.choice(tracks)
+      # ordernumber = order.get(pid,0) + 1
+      # order[pid] = order.get(pid,0) + 1
+
+      playlistsongs.append((psid, pid, tid, int(float(ordernumber))))
+      psid += 1
   return playlistsongs
 
 # get_playlistsong()
